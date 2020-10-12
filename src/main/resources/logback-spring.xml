@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/base.xml" />
+    
+   <!-- <springProperty scope="context" name="justForMidterm" source="my.name"
+        defaultValue="No user"/> -->
+    
+    <springProfile name="default">
+        <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    		<encoder>
+      			<pattern>%msg%n</pattern>
+    		</encoder>
+  		</appender>
+    </springProfile>
+    
+    <springProfile name="professor">
+         <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    		
+    		<file>logFile.log</file>
+    		
+    		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      			<!-- every minute rollover -->
+      			<fileNamePattern>logFile.%d{yyyy-MM-dd_HH-mm}.log</fileNamePattern>
+      		
+      			<!-- keep 30 days' worth of history capped at 3GB total size -->
+      			<maxHistory>1</maxHistory>
+      			<totalSizeCap>3GB</totalSizeCap>
+    		</rollingPolicy>
+    		
+    		<encoder>
+      			<pattern>%msg%n</pattern>
+    		</encoder>
+    		
+    		<!-- <encoder>
+      			<pattern>%msg%n by ${justForMidterm}</pattern>
+    		</encoder> -->
+  		</appender> 
+    </springProfile>
+  		
+  	<root level="OFF">
+    	<appender-ref ref="FILE" />
+  	</root>
+ </configuration>
